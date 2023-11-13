@@ -4,11 +4,10 @@
 
 int _printf(const char *format, ...)
 {
+int count = 0;
 va_list args;
 
 va_start(args, format);
-
-int count = 0;
 
 while (*format != '\0')
 {
@@ -21,7 +20,7 @@ format += 2;
 }
 else
 {
-putchar(*format)
+putchar(*format);
 count++;
 format++;
 }
