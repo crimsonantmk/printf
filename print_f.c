@@ -1,60 +1,55 @@
-#include "main.h"
+#include <main.h>
 
-int _printf(const char *format, ...)
-
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
 {
-	int chara_print = 0;
-	va_list l ist_of_args;
+	return (write(1, &c, 1));
+}
 
-	if(format == NULL)
-		return -1;
-	
-          
-	va_start(list_of_arg, format);
+/**
+ * _printf - produces output according to a format
+ * @format: character string
+ *
+ * Return: the number of characters printed (excluding the null byte used to end output to strings)
+ */
+int _printf(const char *format, ...)
+{
+	va_list args;
+	int i = 0, count = 0;
 
-	while(*format)
+	va_start(args, format);
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+
+	while (format[i])
 	{
-		if(*format != '%')
+		if (format[i] == '%')
 		{
-			write(1, format, 1);
-			chara_print++;
+			i++;
+			while (format[i] == ' ')
+				i++;
+			if (format[i] == '\0')
+				return (-1);
+			if (format[i] == '%')
+				count += _putchar('%');
+			else if (format[i] == 'c')
+				count += _putchar(va_arg(args, int));
+			else if (format[i] == 's')
+				count += write(1, va_arg(args, char *), 1);
+			else
+				count += _putchar('%') + _putchar(format[i]);
 		}
 		else
-	       	{
-			format++;
-			if (*format == '\0')
-				break;
-		
-
-		if(*format == 'c')
-		{
-			char c = va_arg(list_of_args, int);
-			write(1, &c, 1)
-			chara_print++;
-		}
-		else if(*format == 's')
-		{
-			char *str = va_arg(list_of_args, char*);
-			int str_len = 0;
-
-			while(str[str_len] != '\0')
-				str_len++;
-		}
-		
-		else if(*format = '%')
-		{
-			write(1, format, 1);
-			chara_print++;
-			
-			write(1, str, str_len);
-			chara_print += str_len;
-		
-		}
-		}
-		format++;
+			count += _putchar(format[i]);
+		i++;
 	}
-
-	va_arg(list_of_arg);
-
-	return chara_print;
-}	
+	va_end(args);
+	return (count);
+}
