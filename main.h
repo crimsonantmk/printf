@@ -8,5 +8,7 @@
 int binary(int num);
 int octal(int num);
 int _printf(const char *format, ...);
+int putchr(char c);
+int putss(char *c);
 
 #endif /* MAIN_H */
