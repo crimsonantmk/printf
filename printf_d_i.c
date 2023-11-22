@@ -8,7 +8,7 @@
  * @format: Format string with conversion specifiers
  * Return: Number of characters printed (excluding null byte)
  */
-int _printf(const char *format, ...)
+int printf_d_i(const char *format, ...)
 {
 va_list args;
 

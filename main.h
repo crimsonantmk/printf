@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 int binary(int num);
+int printf_d_i(const char *format, ...);
 int octal(int num);
 int _printf(const char *format, ...);
 int putchr(char c);

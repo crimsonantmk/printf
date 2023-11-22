@@ -9,7 +9,7 @@
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+return write(1, &c, 1);
 }
 
 /**
@@ -19,37 +19,43 @@ int _putchar(char c)
  * Return: the number of characters printed (excluding the null byte used to end output to strings)
  */
 int _printf(const char *format, ...)
+
 {
-	va_list args;
-	int i = 0, count = 0;
+va_list args;
+int count = 0;
+int i = 0;
 
-	va_start(args, format);
+va_start(args, format);
 
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
+if (!format || (format[0] == '%' && !format[1]))
+return (-1);
 
-	while (format[i])
-	{
-		if (format[i] == '%')
-		{
-			i++;
-			while (format[i] == ' ')
-				i++;
-			if (format[i] == '\0')
-				return (-1);
-			if (format[i] == '%')
-				count += _putchar('%');
-			else if (format[i] == 'c')
-				count += _putchar(va_arg(args, int));
-			else if (format[i] == 's')
-				count += write(1, va_arg(args, char *), 1);
-			else
-				count += _putchar('%') + _putchar(format[i]);
-		}
-		else
-			count += _putchar(format[i]);
-		i++;
-	}
-	va_end(args);
-	return (count);
+while (format[i])
+{
+if (format[i] == '%')
+{
+i++;
+while (format[i] == ' ')
+i++;
+if (format[i] == '\0')
+return (-1);
+if (format[i] == '%')
+count += _putchar('%');
+else if (format[i] == 'c')
+count += _putchar(va_arg(args, int));
+else if (format[i] == 's')
+count += write(1, va_arg(args, char *), strlen(va_arg(args, char *)));
+else
+count += _putchar('%') + _putchar(format[i]);
 }
+else
+count += _putchar(format[i]);
+i++;
+}
+
+va_end(args);
+return (count);
+}
+
+
+
